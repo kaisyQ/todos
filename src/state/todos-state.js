@@ -49,7 +49,8 @@ export const reducer = (state, action) => {
         }
     case SET_TODOS:
         return {
-            ...state
+            ...state,
+            todos: [...action.payload]
         }
     default:
       throw new Error()

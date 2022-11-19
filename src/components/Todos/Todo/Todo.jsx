@@ -1,16 +1,19 @@
 import react from 'react'
 import { removeTodo as removeTodoActionCreater } from '../../../state/todos-state'
 import { setIsCompleted as setIsCompletedActionCreater } from '../../../state/todos-state'
+import TodosApi from '../../../firebase/api'
 
 const Todo = ({ title, date, id, dispatch }) => {
     
     const removeTodo = (ev) => {
+        TodosApi.removeTodo(id)
         dispatch(removeTodoActionCreater({
             id: id
         }))
     }
 
     const setIsCompleted = (ev) => {
+        TodosApi.updateTodo(id, true)
         dispatch(setIsCompletedActionCreater({
             id: id
         }))
