@@ -13,7 +13,6 @@ const App = () => {
     useEffect(() => {
         const todosAsyncWrapper = async () => {
             const todos = await TodosApi.getTodos()
-            console.log(todos)
             dispatch(setTodos(todos))
         }
         todosAsyncWrapper()
