@@ -24,7 +24,11 @@ const Todo = ({ title, date, id, files, dispatch }) => {
                 <div className='todo__title'>{ title }</div>
                 <div className='todo__date'>{ date }</div>
                 <div className='todo__files'>
-                    <img src="" alt="" />
+                    <div className='todo__file'>
+                    {
+                        files.map((fileUrl, index) => <a key={index} href={fileUrl} download>File 1</a>)               
+                    }
+                    </div>
                 </div>
             </div>
             <button onClick={ removeTodo }>Remove</button>

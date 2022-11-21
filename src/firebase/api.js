@@ -1,5 +1,5 @@
 import { collection, addDoc, query, getDocs,  deleteDoc, doc, updateDoc  } from "firebase/firestore"
-import { getStorage, ref, uploadString, getDownloadURL, listAll } from "firebase/storage";
+import { getStorage, ref, uploadString, deleteObject, listAll, getDownloadURL  } from "firebase/storage";
 import { db } from "./app"
 
 const TODOS_COLLECTION = 'todos'
@@ -7,16 +7,23 @@ const TODOS_COLLECTION = 'todos'
 class TodoApi {
     constructor () {
         this.collection = collection(db, TODOS_COLLECTION)
-        this.db = db
+        this.db = db 
     }
 
-    getFolder = async () => {
+    getFolderFiles = async (id) => {
+        
         const storage = getStorage()
-        const starsRef1 = ref(storage, 'dTViEwpvQrE591i0FX1n/')
-        const all = await listAll(starsRef1)
-        console.log(all.items[1].name)
-        const starsRef = ref(storage, 'dTViEwpvQrE591i0FX1n/0');
-        getDownloadURL(starsRef).then(url => console.log(url))
+        const folderRef = ref(storage, `${id}/`)
+        
+        const allFiles = await listAll(folderRef)
+
+        const urls = Promise.all(allFiles.items.map(async (item, index) => {
+            const fileRef = ref(storage, `${id}/${index}`)
+            const url = await getDownloadURL(fileRef)
+            return url
+        }))
+
+        return urls
     }
 
     addTodo = async ({title, date, isCompleted, files}) => {
@@ -43,7 +50,16 @@ class TodoApi {
     }
     removeTodo = async (id) => {
         try {
+            const storage = getStorage()
+            const folderRef = ref(storage, `${id}/`)
+
             await deleteDoc(doc(this.db, TODOS_COLLECTION, id))
+            const allFiles = await listAll(folderRef)
+
+            Promise.all(allFiles.items.map(async (item, index) => {
+                const fileRef = ref(storage, `${id}/${index}`)
+                await deleteObject(fileRef)
+            }))
         } catch (err) {
             console.error("Error removing document: ", err)
         }
@@ -57,15 +73,16 @@ class TodoApi {
         }
     }
 
-    getTodos = async() => {
+    getTodos = async () => {
         try {
             const todosQuery = await query(this.collection)
             const todosDocs = await getDocs(todosQuery)
-            const todos = []
-            
-            todosDocs.forEach((todo) => {
-                todos.push({ ...todo.data(), id: todo.id })
-            })
+
+            const todosPromise = Promise.all(Array.from(todosDocs.docs).map(async (todo) => {
+                const todoFiles = await this.getFolderFiles(todo.id)
+                return { ...todo.data(), id: todo.id, files: todoFiles }
+            }))
+            const todos = await todosPromise
             return todos
         } catch (err) {
             console.error("Error taking from firebase documents: ", err)

@@ -1,4 +1,3 @@
-import dayjs from "dayjs"
 import { ALL, COMPLETED, NOT_COMPLETED, OUT_OF_DATE } from "./showParams"
 
 export const todosWithParams = (todos, param) => {
