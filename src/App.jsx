@@ -4,6 +4,7 @@ import { ALL } from './state/showParams'
 import TodosApi from './firebase/api'
 import Header from './components/Header/Header'
 import Todos from './components/Todos/Todos'
+import './App.css'
 
 const App = () => {
     

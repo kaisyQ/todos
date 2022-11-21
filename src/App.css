@@ -1,38 +1,95 @@
-.App {
-  text-align: center;
+
+.btn {
+  padding: 5px 15px;
+  margin: 0 10px;
+  border: 1px solid rgb(33, 122, 218);
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.btn:hover {
+  transition: .2s;
+  background-color: rgb(122, 115, 240);
+  color: #fff;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.header__title {
+  margin-bottom: 15px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+
+.todo__creater {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+.todo__creater__input {
+  padding: 10px 20px;
+  border: 1px solid rgb(33, 122, 218);
+  border-radius: 3px;
+  margin: 0 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.file-input {
+  display: none;
+}
+
+.input__file-button {
+  display: block;
+  font-size: 14px;  
+}
+
+.todos {
+  margin-top: 40px;
+}
+
+.todo {
+  border: 1px solid rgb(56, 47, 188);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.todo__about {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.todo__title {
+  margin-right: 20px;
+}
+
+.todo__date {
+  margin-right: 20px;
+}
+.todo__item__head {
+  border-bottom: 1px solid rgb(32, 19, 207);
+  margin-bottom: 10px;
+  text-transform: capitalize;
+}
+.todo__files {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todo__file {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todo__file__link {
+  width: 100%;
+}
+
+.todo__file__image {
+  width: 100%;
+}
+
+.red-color__date {
+  color: red;
 }

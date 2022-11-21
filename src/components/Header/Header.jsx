@@ -1,15 +1,14 @@
 import react from 'react'
-import { COMPLETED, ALL, OUT_OF_DATE, NOT_COMPLETED } from '../../state/showParams'
+import { COMPLETED, ALL, NOT_COMPLETED } from '../../state/showParams'
 
 const Header = ({ setShowParam }) => {
     return <>
         <header className='header'>
-            <h1>Todos</h1>
-            <nav>
-               <button onClick={(ev) => { setShowParam(COMPLETED) }}>Completed</button>
-               <button onClick={(ev) => { setShowParam(NOT_COMPLETED) }}>Not completed</button> 
-               <button onClick={(ev) => { setShowParam(ALL) }}>All</button>
-               <button onClick={(ev) => { setShowParam(OUT_OF_DATE) }}>Out Of Date</button>
+            <h1 className="header__title">Todos</h1>
+            <nav className="header__nav">
+               <button className='btn' onClick={(ev) => { setShowParam(COMPLETED) }}>Completed</button>
+               <button className='btn' onClick={(ev) => { setShowParam(NOT_COMPLETED) }}>Not completed</button> 
+               <button className='btn' onClick={(ev) => { setShowParam(ALL) }}>All</button>
             </nav>
         </header>
     </>

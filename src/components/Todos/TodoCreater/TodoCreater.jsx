@@ -25,6 +25,7 @@ const TodoCreater = ({ dispatch }) => {
             }))
 
             setTodoTitle('')
+            setTodoFiles([])
         }
     }
     const todoFileChange = (ev) => {
@@ -41,12 +42,17 @@ const TodoCreater = ({ dispatch }) => {
 
     return <>
         <div className='todo__creater'>
-            <input value={ todoTitle } type="text" placeholder='Add your todo' onChange={(ev) => { setTodoTitle(ev.target.value) }}/>
-            <input type="file" multiple="multiple" name="files[]" onChange={todoFileChange} />
+            <input className='todo__creater__input' value={ todoTitle } type="text" placeholder='Add your todo' onChange={(ev) => { setTodoTitle(ev.target.value) }}/>
+            <div className='input-file-wrapper'>
+                <input className='todo__creater__input file-input' id='input__file' type="file" multiple="multiple" name="files[]" onChange={todoFileChange} />
+                <label htmlFor="input__file" className="input__file-button btn">
+                    <span className="input__file-button-text">Выберите файл</span>
+                </label>
+            </div>
             {
                 todoFiles.map((todoFile, index)=> <img width={'100px'} height={'100px'} src={todoFile} key={index} />)
             }
-            <button onClick={addTodo}>Create</button>
+            <button className='btn' onClick={addTodo}>Create</button>
         </div>
     </>
 }

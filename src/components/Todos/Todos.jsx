@@ -5,10 +5,14 @@ import { todosWithParams } from '../../state/todo-filter'
 
 const Todos = ({ todos, dispatch, showParam }) => {
     return <>
-        <TodoCreater dispatch={dispatch} />
-        {
-            todosWithParams(todos, showParam).map(todo => <Todo {...todo} dispatch={dispatch} key={todo.id} />) 
-        }
+        <main className='main'>
+            <TodoCreater dispatch={dispatch} />
+            <div className='todos'>
+            {
+                todosWithParams(todos, showParam).map(todo => <Todo {...todo} dispatch={dispatch} key={todo.id} />) 
+            }
+            </div>
+        </main>
     </>
 }
 
